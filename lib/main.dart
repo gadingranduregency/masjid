@@ -1,122 +1,144 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'pages/kegiatan_page.dart';
+import 'pages/aktivitas_page.dart';
+import 'pages/kas_page.dart';
+import 'pages/ikhtisar_page.dart';
+import 'widgets/fab_menu.dart';
+import 'services/api_service.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const SabilulAmanahApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class SabilulAmanahApp extends StatelessWidget {
+  const SabilulAmanahApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'SABILUL AMANAH',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF064E3B),
+          primary: const Color(0xFF064E3B),
+        ),
+        textTheme: GoogleFonts.plusJakartaSansTextTheme(),
+        scaffoldBackgroundColor: const Color(0xFFF8FAFC),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MainDashboard(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class MainDashboard extends StatefulWidget {
+  const MainDashboard({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MainDashboard> createState() => _MainDashboardState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MainDashboardState extends State<MainDashboard> {
+  int _currentIndex = 0; // 0=Kegiatan (main), 1=Aktivitas, 2=Kas, 3=Ikhtisar
+  final ApiService _api = ApiService();
+  Map<String, dynamic>? dashboardData;
+  bool isLoading = true;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  final List<String> titles = [
+    'Kegiatan',
+    'Aktivitas Masjid',
+    'Kas',
+    'Ikhtisar',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    setState(() => isLoading = true);
+    try {
+      final data = await _api.fetchDashboard();
+      setState(() {
+        dashboardData = data;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() => isLoading = false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    final pages = [
+      KegiatanPage(data: dashboardData, isLoading: isLoading, onRefresh: _loadData),
+      AktivitasPage(data: dashboardData, isLoading: isLoading),
+      KasPage(data: dashboardData, isLoading: isLoading),
+      IkhtisarPage(data: dashboardData, isLoading: isLoading),
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            Row(
+              children: [
+                Container(
+                  width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(colors: [Color(0xFF064E3B), Color(0xFF10B981)]),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(Icons.mosque, color: Colors.white, size: 20),
+                ),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('SABILUL AMANAH',
+                        style: GoogleFonts.plusJakartaSans(
+                            fontWeight: FontWeight.w800, fontSize: 14, letterSpacing: 0.5)),
+                    Text('سبيل الأمانة • Public WebView • Read-Only',
+                        style: GoogleFonts.plusJakartaSans(fontSize: 9, color: Colors.grey)),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(height: 1, color: const Color(0xFFE2E8F0)),
+        ),
+        actions: [
+          IconButton(
+            onPressed: _loadData,
+            icon: const Icon(Icons.refresh, size: 20),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: pages,
       ),
+      // FAB fixed viewport kanan bawah layar HP
+      floatingActionButton: FabMenu(
+        currentIndex: _currentIndex,
+        onSelected: (index) {
+          setState(() => _currentIndex = index);
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }

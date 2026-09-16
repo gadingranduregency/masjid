@@ -1,0 +1,21 @@
+{
+  "name": "SABILUL AMANAH - Masjid",
+  "short_name": "SABILUL AMANAH",
+  "description": "Ikhtisar Kas Kegiatan Masjid + Jadwal Shalat Kemenag WIB Probolinggo + Notifikasi Adzan",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#064E3B",
+  "theme_color": "#064E3B",
+  "icons": [
+    {"src": "icons/Icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icons/Icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icons/Icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable"},
+    {"src": "icons/Icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Jadwal Shalat", "url": "/?tab=jadwal", "icons": [{"src": "icons/Icon-192.png", "sizes": "192x192"}]},
+    {"name": "Ikhtisar", "url": "/?tab=ikhtisar", "icons": [{"src": "icons/Icon-192.png", "sizes": "192x192"}]}
+  ]
+}

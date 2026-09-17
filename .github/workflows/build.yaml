@@ -1,0 +1,48 @@
+name: Build Masjid
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout PUBLIC masjid
+        uses: actions/checkout@v4
+        with:
+          path: public
+
+      - name: Checkout PRIVATE libmasjid
+        uses: actions/checkout@v4
+        with:
+          repository: gadingranduregency/libmasjid
+          token: ${{ secrets.MASJID_PAT }}
+          path: private
+
+      - name: Copy lib dari PRIVATE
+        run: |
+          ls -la private/
+          rm -rf public/lib
+          cp -r private/lib public/lib
+          if [ -f private/pubspec.yaml ]; then cp private/pubspec.yaml public/pubspec.yaml; echo "pubspec copied"; else echo "pubspec.yaml tidak ada di private, pakai punya public"; fi
+          ls -la public/lib/ | head -20
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.0'
+          channel: 'stable'
+
+      - name: Build Web
+        working-directory: public
+        run: |
+          flutter create . --platforms=web --no-overwrite
+          flutter pub get
+          flutter build web --release --base-href /masjid/ --dart-define=API_BASE_URL=https://sabilulamanah.up.railway.app/api --dart-define=MASJID_KEY=${{ secrets.MASJID_KEY }}
+
+      - name: Deploy ke Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public/build/web

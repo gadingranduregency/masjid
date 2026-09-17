@@ -1,0 +1,26 @@
+name: sabilul_amanah_webapk
+description: Masjid Sabilul Amanah - Public WebView Read-Only + Ikhtisar + Jadwal Shalat Kemenag
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^6.1.0
+  http: ^1.1.0
+  fl_chart: ^0.66.0
+  url_launcher: ^6.2.5
+  flutter_local_notifications: ^16.3.0
+  permission_handler: ^11.3.0
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true

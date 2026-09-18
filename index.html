@@ -1,45 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
   <base href="/masjid/">
-  <meta name="theme-color" content="#D4AF37">
-  <meta name="msapplication-navbutton-color" content="#D4AF37">
-  <meta name="apple-mobile-web-app-status-bar-style" content=""#D4AF37">
-  <link rel="manifest" href="manifest.json">
-
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Masjid Sabilul Amanah - Ikhtisar Kas Kegiatan + Jadwal Shalat Kemenag WIB + Adzan Otomatis PWA">
+  
+  <!-- SEO INTI - GRR SABILULAMANAH GADINGRANDU -->
+  <title>Masjid Sabilul Amanah GRR Gadingrandu Probolinggo | Gading Grand Residence</title>
+  <meta name="description" content="Website resmi Masjid Sabilul Amanah GRR Gadingrandu Probolinggo. Laporan kas masjid transparan, jadwal sholat Kemenag WIB, kegiatan takmir, ikhtisar keuangan.">
+  <meta name="keywords" content="grr, sabilulamanah, gadingrandu, masjid sabilul amanah, gading grand residence, masjid gadingrandu, takmir gadingrandu, masjid probolinggo">
+  <meta name="author" content="Takmir Masjid Sabilul Amanah GRR">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://gadingranduregency.github.io/masjid/">
+
+  <!-- PWA Color -->
   <meta name="theme-color" content="#0B3D2E">
+  <meta name="msapplication-navbutton-color" content="#0B3D2E">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="SABILUL AMANAH">
+  <meta name="apple-mobile-web-app-title" content="SABILUL AMANAH GRR">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
   <link rel="icon" type="image/png" href="favicon.png"/>
   <link rel="manifest" href="manifest.json">
-  <title>SABILUL AMANAH</title>
-  <script>const serviceWorkerVersion = "1821889381";</script>
+
+  <!-- OG untuk WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Masjid Sabilul Amanah GRR Gadingrandu - Gading Grand Residence">
+  <meta property="og:description" content="Info kas, jadwal sholat Kemenag WIB Probolinggo, kegiatan Masjid Sabilul Amanah GRR">
+  <meta property="og:image" content="https://gadingranduregency.github.io/masjid/icons/Icon-512.png">
+  <meta property="og:url" content="https://gadingranduregency.github.io/masjid/">
+  <meta property="og:site_name" content="SABILUL AMANAH GRR">
+
+  <script>const serviceWorkerVersion = "4115832434";</script>
   <script src="flutter.js" defer></script>
+
+  <!-- Schema.org biar langsung nomor 1 -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Mosque",
+    "name":"Masjid Sabilul Amanah GRR",
+    "alternateName":["GRR","SabilulAmanah","Gadingrandu","Masjid Gading Grand Residence"],
+    "description":"Masjid Sabilul Amanah Gading Grand Residence GRR Gadingrandu Probolinggo",
+    "url":"https://gadingranduregency.github.io/masjid/",
+    "address":{"@type":"PostalAddress","addressLocality":"Probolinggo","addressRegion":"Jawa Timur"},
+    "keywords":"grr, sabilulamanah, gadingrandu"
+  }
+  </script>
+
   <style>
   #pwaBanner{display:none;position:fixed;bottom:20px;left:12px;right:12px;background:#0B3D2E;border:1.5px solid #D4AF37;border-radius:16px;padding:12px 14px;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.35);align-items:center;gap:12px}
   #pwaBanner.show{display:flex}
-  #pwaInstallBtn{flex:1;background:#D4AF37;color:#0B3D2E;border:0;padding:10px 16px;border-radius:20px;font-weight:800}
-  #pwaCloseBtn{background:transparent;border:0;color:#D4AF37;font-size:20px;padding:4px 8px}
-</style>
-
-<div id="pwaBanner">
-  <img src="icons/Icon-192.png" width="32" height="32" style="border-radius:8px">
-  <div style="flex:1">
-    <div style="color:#fff;font-weight:700;font-size:13px">SABILUL AMANAH</div>
-    <div style="color:#D4AF37;font-size:11px">Pasang aplikasi + Adzan otomatis</div>
-  </div>
-  <button id="pwaInstallBtn">Pasang</button>
-  <button id="pwaCloseBtn">✕</button>
-</div>
+  #pwaInstallBtn2{flex:1;background:#D4AF37;color:#0B3D2E;border:0;padding:10px 16px;border-radius:20px;font-weight:800;cursor:pointer}
+  #pwaCloseBtn{background:transparent;border:0;color:#D4AF37;font-size:20px;padding:4px 8px;cursor:pointer}
+  </style>
 </head>
 <body>
-  <audio id="adzanAudio" src="assets/assets/adzan.mp3" preload="auto"></audio>
-  <button id="pwaInstallBtn">INSTALL APLIKASI</button>
+  <!-- FIX AUDIO: cuma assets/adzan.mp3 bukan assets/assets -->
+  <audio id="adzanAudio" src="assets/adzan.mp3" preload="auto"></audio>
+
+  <div id="pwaBanner">
+    <img src="icons/Icon-192.png" width="32" height="32" style="border-radius:8px">
+    <div style="flex:1">
+      <div style="color:#fff;font-weight:700;font-size:13px">SABILUL AMANAH GRR</div>
+      <div style="color:#D4AF37;font-size:11px">Pasang aplikasi + Adzan otomatis</div>
+    </div>
+    <button id="pwaInstallBtn2">Pasang</button>
+    <button id="pwaCloseBtn">✕</button>
+  </div>
 
   <script>
     window.addEventListener('load', function() {
@@ -51,91 +79,65 @@
       });
     });
 
-    // === PWA INSTALL HANDLER ===
+    // === PWA INSTALL + ADZAN CUMA JIKA PWA TERINSTALL ===
     let deferredPrompt;
-    const installBtn = document.getElementById('pwaInstallBtn');
+    const banner = document.getElementById('pwaBanner');
+    const installBtn = document.getElementById('pwaInstallBtn2');
+    const closeBtn = document.getElementById('pwaCloseBtn');
+
+    function isPWA() {
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    }
+
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      installBtn.style.display = 'block';
+      if(!localStorage.getItem('pwaBannerClosed') || Date.now() - localStorage.getItem('pwaBannerClosed') > 86400000){
+        banner.classList.add('show');
+      }
     });
-    installBtn.addEventListener('click', async () => {
-      installBtn.style.display = 'none';
-      if(deferredPrompt){ deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; }
-    });
-    window.addEventListener('appinstalled', ()=>{ installBtn.style.display='none'; console.log('PWA installed'); });
 
-    // === ADZAN BUNYI + NOTIF - CUMA KALAU INSTALL PWA ===
-    function isPWA() {
-      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone || document.referrer.includes('android-app://');
-    }
+    installBtn.addEventListener('click', async () => {
+      banner.classList.remove('show');
+      if(deferredPrompt){ deferredPrompt.prompt(); const c = await deferredPrompt.userChoice; deferredPrompt=null; if(c.outcome==='accepted') initAdzanPWA(); }
+    });
+    closeBtn.addEventListener('click', () => {
+      banner.classList.remove('show');
+      localStorage.setItem('pwaBannerClosed', Date.now());
+    });
+    window.addEventListener('appinstalled', ()=>{ banner.classList.remove('show'); initAdzanPWA(); });
+
     async function initAdzanPWA() {
-      if (!isPWA()) { console.log('Browser biasa - Adzan OFF'); return; }
+      if (!isPWA() && !localStorage.getItem('pwaInstalled')) return;
       if (!('Notification' in window)) return;
-      console.log('PWA Installed - Adzan ON');
       if (Notification.permission !== 'granted') {
         const perm = await Notification.requestPermission();
         if (perm !== 'granted') return;
       }
       scheduleAdzan();
     }
+
     async function scheduleAdzan() {
       try {
         const audio = document.getElementById('adzanAudio');
         const today = new Date();
         const res = await fetch(`https://api.myquran.com/v2/sholat/jadwal/1632/${today.getFullYear()}/${String(today.getMonth()+1).padStart(2,'0')}/${String(today.getDate()).padStart(2,'0')}`);
         const j = (await res.json()).data.jadwal;
-        const list = [
-          {n:'Subuh', t:j.subuh}, {n:'Dzuhur', t:j.dzuhur}, {n:'Ashar', t:j.ashar}, {n:'Maghrib', t:j.maghrib}, {n:'Isya', t:j.isya}
-        ];
+        const list = [{n:'Subuh',t:j.subuh},{n:'Dzuhur',t:j.dzuhur},{n:'Ashar',t:j.ashar},{n:'Maghrib',t:j.maghrib},{n:'Isya',t:j.isya}];
         list.forEach(item => {
           const [h,m] = item.t.split(':').map(Number);
           let target = new Date(today.getFullYear(), today.getMonth(), today.getDate(), h, m, 0);
           if (target < today) target.setDate(target.getDate()+1);
           setTimeout(() => {
             audio.play().catch(()=>{});
-            new Notification(`Waktu ${item.n} - Probolinggo`, {
-              body: `Masuk waktu ${item.n} ${item.t} WIB - SABILUL AMANAH`,
-              icon: 'icons/Icon-512.png',
-              badge: 'icons/Icon-192.png',
-              requireInteraction: true
-            });
+            new Notification(`Waktu ${item.n} - GRR Gadingrandu`, {body:`Masuk waktu ${item.n} ${item.t} WIB - SABILUL AMANAH`, icon:'icons/Icon-512.png', requireInteraction:true});
           }, target - today);
         });
         const tomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate()+1, 0, 5, 0) - today;
         setTimeout(scheduleAdzan, tomorrow);
       } catch(e){ console.log('jadwal error', e); }
     }
-    window.addEventListener('load', () => setTimeout(initAdzanPWA, 2500));
+    window.addEventListener('load', () => setTimeout(()=>{ if(isPWA()) initAdzanPWA(); }, 2500));
   </script>
-<script>
-  let deferredPrompt;
-  const banner = document.getElementById('pwaBanner');
-  const installBtn = document.getElementById('pwaInstallBtn');
-  const closeBtn = document.getElementById('pwaCloseBtn');
-
-  // cek kalau user pernah close, jangan munculin lagi 1 hari
-  if(localStorage.getItem('pwaBannerClosed') && Date.now() - localStorage.getItem('pwaBannerClosed') < 86400000){
-    // jangan tampil
-  } else {
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      banner.classList.add('show');
-    });
-  }
-
-  installBtn.addEventListener('click', async () => {
-    banner.classList.remove('show');
-    if(deferredPrompt){ deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; }
-  });
-
-  closeBtn.addEventListener('click', () => {
-    banner.classList.remove('show');
-    localStorage.setItem('pwaBannerClosed', Date.now());
-  });
-
-  window.addEventListener('appinstalled', ()=> banner.classList.remove('show'));
-</script>
 </body>
 </html>

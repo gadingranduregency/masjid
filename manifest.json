@@ -1,21 +1,18 @@
 {
-  "name": "SABILUL AMANAH - Masjid",
-  "short_name": "SABILUL AMANAH",
-  "description": "Ikhtisar Kas Kegiatan Masjid + Jadwal Shalat Kemenag WIB Probolinggo + Notifikasi Adzan",
+  "name": "Masjid Sabilul Amanah GRR Gadingrandu - Gading Grand Residence",
+  "short_name": "SABILUL AMANAH GRR",
+  "description": "Website resmi Masjid Sabilul Amanah GRR Gadingrandu Probolinggo. Keyword: grr, sabilulamanah, gadingrandu - Kas transparan, jadwal sholat Kemenag WIB, adzan otomatis",
   "start_url": "/masjid/",
   "scope": "/masjid/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#D4AF37",
-  "theme_color": "#D4AF37",
+  "background_color": "#0B3D2E",
+  "theme_color": "#0B3D2E",
+  "categories": ["religion","lifestyle"],
   "icons": [
     {"src": "icons/Icon-192.png", "sizes": "192x192", "type": "image/png"},
     {"src": "icons/Icon-512.png", "sizes": "512x512", "type": "image/png"},
     {"src": "icons/Icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable"},
     {"src": "icons/Icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
-  ],
-  "shortcuts": [
-    {"name": "Jadwal Shalat", "url": "/masjid/?tab=jadwal", "icons": [{"src": "icons/Icon-192.png", "sizes": "192x192"}]},
-    {"name": "Ikhtisar", "url": "/masjid/?tab=ikhtisar", "icons": [{"src": "icons/Icon-192.png", "sizes": "192x192"}]}
   ]
 }

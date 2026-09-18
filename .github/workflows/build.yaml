@@ -33,18 +33,20 @@ jobs:
           channel: 'stable'
 
       - name: Build Web - OBFUSCATED
-        working-directory: public
+  working-directory: public
         run: |
-          flutter pub get
-          flutter build web --release \
-            --base-href /masjid/ \
-            --obfuscate --split-debug-info=./symbols \
-            --dart-define=API_BASE_URL=https://sabilulamanah-takmir.up.railway.app/api \
-            --dart-define=MASJID_KEY=${{ secrets.MASJID_KEY }}
-          # HAPUS source map biar lib private gak bocor
-          rm -rf build/web/*.map
-          rm -rf build/web/canvaskit/*.map
-          ls -lh build/web/ | head -20
+    flutter pub get
+    flutter build web --release \
+      --base-href /masjid/ \
+      --dart2js-optimization O4 \
+      --pwa-strategy none \
+      --dart-define=API_BASE_URL=https://sabilulamanah-takmir.up.railway.app/api \
+      --dart-define=MASJID_KEY=${{ secrets.MASJID_KEY }}
+    # INI YANG BIKIN lib PRIVATE AMAN - hapus source map
+    echo "Hapus source map biar lib gak bocor..."
+    find build/web -name "*.map" -delete
+    find build/web -name "*.js.map" -delete
+    ls -lh build/web/
 
       - name: Simpan symbols buat debug (private)
         uses: actions/upload-artifact@v4

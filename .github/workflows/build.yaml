@@ -35,8 +35,8 @@ jobs:
       - name: Build Web - OBFUSCATED
   working-directory: public
         run: |
-    flutter pub get
-    flutter build web --release \
+          flutter pub get
+          flutter build web --release \
       --base-href /masjid/ \
       --dart2js-optimization O4 \
       --pwa-strategy none \

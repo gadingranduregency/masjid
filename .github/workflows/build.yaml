@@ -23,23 +23,35 @@ jobs:
 
       - name: Copy lib dari PRIVATE
         run: |
-          ls -la private/
           rm -rf public/lib
           cp -r private/lib public/lib
-          if [ -f private/pubspec.yaml ]; then cp private/pubspec.yaml public/pubspec.yaml; echo "pubspec copied"; else echo "pubspec.yaml tidak ada di private, pakai punya public"; fi
-          ls -la public/lib/ | head -20
+          if [ -f private/pubspec.yaml ]; then cp private/pubspec.yaml public/pubspec.yaml; fi
 
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.0'
           channel: 'stable'
 
-      - name: Build Web
+      - name: Build Web - OBFUSCATED
         working-directory: public
         run: |
-          flutter create . --platforms=web --no-overwrite
           flutter pub get
-          flutter build web --release --base-href /masjid/ --dart-define=API_BASE_URL=https://sabilulamanah.up.railway.app/api --dart-define=MASJID_KEY=${{ secrets.MASJID_KEY }}
+          flutter build web --release \
+            --base-href /masjid/ \
+            --obfuscate --split-debug-info=./symbols \
+            --dart-define=API_BASE_URL=https://sabilulamanah-takmir.up.railway.app/api \
+            --dart-define=MASJID_KEY=${{ secrets.MASJID_KEY }}
+          # HAPUS source map biar lib private gak bocor
+          rm -rf build/web/*.map
+          rm -rf build/web/canvaskit/*.map
+          ls -lh build/web/ | head -20
+
+      - name: Simpan symbols buat debug (private)
+        uses: actions/upload-artifact@v4
+        with:
+          name: obfuscation-symbols
+          path: public/symbols/
+          retention-days: 7
 
       - name: Deploy ke Pages
         uses: peaceiris/actions-gh-pages@v4

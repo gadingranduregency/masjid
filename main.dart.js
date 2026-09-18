@@ -71411,7 +71411,7 @@ A.z4.prototype={
 aN(){var s=this
 s.b6()
 s.e!==$&&A.bk()
-s.e=new A.S_("https://sabilulamanah.up.railway.app/api")
+s.e=new A.S_("https://sabilulamanah-takmir.up.railway.app/api")
 s.ov()
 s.rt()
 s.a1l()},
